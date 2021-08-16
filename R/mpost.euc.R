@@ -35,7 +35,8 @@
 #' 
 #' #  Step 3. Visualize
 #' #  3-1. show subset posterior samples
-#' opar <- par(mfrow=c(2,3), no.readonly=TRUE)
+#' opar <- par(no.readonly=TRUE)
+#' par(mfrow=c(2,3), no.readonly=TRUE)
 #' for (i in 1:4){
 #'   plot(mydata[[i]], cex=0.5, col=(i+1), pch=19, xlab="", ylab="", 
 #'        main=paste("subset",i), xlim=c(-4,4), ylim=c(-3,3))
@@ -66,13 +67,13 @@ mpost.euc <- function(splist, sigma = 0.1, maxiter = 121, abstol = 1e-6, show.pr
     stop(" * mpost.euc : 'splist' should be a LIST of length larger than 1.")
   }
   if (inherits(splist[[1]], "vector")){
-    check_vector(splist)
+    check_vector(splist, fname="mpost.euc")
     for (i in 1:length(splist)){
       splist[[i]] = matrix(splist[[i]], ncol = 1) # transform to matrices
     }
     vflag = TRUE
   } else if (inherits(splist[[1]], "matrix")){
-    check_matrix(splist)
+    check_matrix(splist, fname="mpost.euc")
     vflag = FALSE
   } else {
     stop(" * mpost.euc : elements in 'splist' should ALL be either VECTORS or MATRICES.")
